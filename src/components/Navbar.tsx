@@ -35,7 +35,7 @@ function Navbar() {
   const NavDropdown = ({ id, children }: { id: DropdownId; children: React.ReactNode }) => (
     activeDropdown === id ? (
       <div
-        className="absolute left-1/2 -translate-x-1/2 mt-3 bg-background border border-border rounded-2xl shadow-2xl p-5 z-50"
+        className="absolute left-1/2 -translate-x-1/2 mt-3 bg-background border border-border rounded-2xl shadow-2xl p-5 z-50 animate-in fade-in zoom-in-95 duration-150"
         onMouseEnter={() => openDropdown(id)}
         onMouseLeave={closeDropdown}
       >
@@ -46,30 +46,31 @@ function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-[999] transition-all duration-200 ${
-        scrolled
-          ? 'backdrop-blur-md bg-background/85 border-b border-border shadow-sm'
-          : 'bg-transparent'
-      }`}
+      className="fixed top-0 left-0 right-0 z-[999]"
+      style={{
+        height: 60,
+        background: 'rgba(9,9,11,0.85)',
+        backdropFilter: 'blur(20px) saturate(1.8)',
+        WebkitBackdropFilter: 'blur(20px) saturate(1.8)',
+        borderBottom: '1px solid rgba(255,255,255,0.08)',
+      }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Left: Logo + 501(c)(3) Badge */}
-          <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2 shrink-0">
-              <Image alt="Zoo" src="/favicon/logo.svg" width={32} height={32} />
-              <div className="flex flex-col">
-                <span className="font-extrabold text-sm tracking-tight text-foreground">ZOO LABS</span>
-                <span className="text-[9px] text-muted-foreground font-semibold -mt-1">FOUNDATION 501(C)(3)</span>
-              </div>
-            </Link>
-          </div>
+      <div style={{ height: '100%', padding: '0 clamp(16px, 4vw, 64px)' }}>
+        <div className="flex items-center justify-between" style={{ height: '100%' }}>
+          {/* Left: Logo + 501(c)(3) Tag */}
+          <Link href="/" className="flex items-center gap-2.5 shrink-0">
+            <Image alt="Zoo" src="/favicon/logo.svg" width={32} height={32} />
+            <div className="flex flex-col">
+              <span className="font-extrabold text-sm tracking-tight text-foreground leading-none">ZOO LABS</span>
+              <span className="text-[9px] text-emerald-400 font-semibold tracking-wider">FOUNDATION 501(C)(3)</span>
+            </div>
+          </Link>
 
           {/* Center: Nav (desktop) */}
           <div className="hidden md:flex items-center gap-1">
             {/* Products */}
             <div className="relative" onMouseEnter={() => openDropdown('products')} onMouseLeave={closeDropdown}>
-              <Link href="/#products" className="text-sm text-muted-foreground hover:text-foreground px-3 py-2 rounded-md transition-colors flex items-center gap-1">
+              <Link href="/#products" className="text-[13px] font-medium text-muted-foreground hover:text-foreground px-3 py-2 rounded-md transition-colors flex items-center gap-1">
                 Products
                 <svg className="w-3 h-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
               </Link>
@@ -111,7 +112,7 @@ function Navbar() {
 
             {/* Models */}
             <div className="relative" onMouseEnter={() => openDropdown('models')} onMouseLeave={closeDropdown}>
-              <Link href="/ai" className="text-sm text-muted-foreground hover:text-foreground px-3 py-2 rounded-md transition-colors flex items-center gap-1">
+              <Link href="/ai" className="text-[13px] font-medium text-muted-foreground hover:text-foreground px-3 py-2 rounded-md transition-colors flex items-center gap-1">
                 Models
                 <svg className="w-3 h-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
               </Link>
@@ -150,7 +151,7 @@ function Navbar() {
 
             {/* Research */}
             <div className="relative" onMouseEnter={() => openDropdown('research')} onMouseLeave={closeDropdown}>
-              <Link href="/research" className="text-sm text-muted-foreground hover:text-foreground px-3 py-2 rounded-md transition-colors flex items-center gap-1">
+              <Link href="/research" className="text-[13px] font-medium text-muted-foreground hover:text-foreground px-3 py-2 rounded-md transition-colors flex items-center gap-1">
                 Research
                 <svg className="w-3 h-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
               </Link>
@@ -179,7 +180,7 @@ function Navbar() {
 
             {/* Foundation */}
             <div className="relative" onMouseEnter={() => openDropdown('foundation')} onMouseLeave={closeDropdown}>
-              <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground px-3 py-2 rounded-md transition-colors flex items-center gap-1">
+              <Link href="/about" className="text-[13px] font-medium text-muted-foreground hover:text-foreground px-3 py-2 rounded-md transition-colors flex items-center gap-1">
                 Foundation
                 <svg className="w-3 h-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
               </Link>
@@ -207,7 +208,7 @@ function Navbar() {
             </div>
           </div>
 
-          {/* Right: Launch AI Playground CTA & Donate */}
+          {/* Right: Actions */}
           <div className="flex items-center gap-3">
             {mounted && (
               <button
@@ -258,29 +259,44 @@ function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileOpen && (
-        <div className="md:hidden border-b border-border bg-background/95 backdrop-blur-lg px-4 py-6 space-y-4">
-          <a
-            href="https://zoolabs.io"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-blue-600 text-white font-bold text-sm shadow-md"
-          >
-            <span>🐬 Launch ZooLabs.io AI Playground</span>
-          </a>
+        <div
+          className="md:hidden"
+          style={{
+            position: 'fixed',
+            top: 60,
+            left: 0,
+            right: 0,
+            height: 'calc(100dvh - 60px)',
+            overflowY: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+            background: 'var(--color-bg, #0a0a0a)',
+          }}
+        >
+          <div className="px-4 py-4 space-y-4" style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+            <a
+              href="https://zoolabs.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-blue-600 text-white font-bold text-sm shadow-md"
+            >
+              <span>🐬 Launch ZooLabs.io AI Playground</span>
+            </a>
 
-          <div className="grid grid-cols-2 gap-2 text-sm">
-            <Link href="/ai" onClick={() => setMobileOpen(false)} className="p-2.5 rounded-lg bg-accent/50 text-foreground font-medium">
-              Zen Models
-            </Link>
-            <Link href="/ai#gym" onClick={() => setMobileOpen(false)} className="p-2.5 rounded-lg bg-accent/50 text-foreground font-medium">
-              Zoo Gym
-            </Link>
-            <Link href="/research" onClick={() => setMobileOpen(false)} className="p-2.5 rounded-lg bg-accent/50 text-foreground font-medium">
-              Research Papers
-            </Link>
-            <Link href="/donation" onClick={() => setMobileOpen(false)} className="p-2.5 rounded-lg bg-accent/50 text-foreground font-medium">
-              501(c)(3) Donate
-            </Link>
+            <div className="grid grid-cols-2 gap-2 text-sm">
+              <Link href="/ai" onClick={() => setMobileOpen(false)} className="p-2.5 rounded-lg bg-accent/50 text-foreground font-medium">
+                Zen Models
+              </Link>
+              <Link href="/ai#gym" onClick={() => setMobileOpen(false)} className="p-2.5 rounded-lg bg-accent/50 text-foreground font-medium">
+                Zoo Gym
+              </Link>
+              <Link href="/research" onClick={() => setMobileOpen(false)} className="p-2.5 rounded-lg bg-accent/50 text-foreground font-medium">
+                Research Papers
+              </Link>
+              <Link href="/donation" onClick={() => setMobileOpen(false)} className="p-2.5 rounded-lg bg-accent/50 text-foreground font-medium">
+                501(c)(3) Donate
+              </Link>
+            </div>
           </div>
         </div>
       )}
