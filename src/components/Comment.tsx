@@ -1,51 +1,122 @@
 import Link from 'next/link';
-function Comment() {
-    const comments = [
-        {
-          title: "100+",
-          comment: "It's estimated that 100 African elephants are killed each day by poachers.",
-          link: "Endangered Elephants",
-          href: "/animals/sumatran_elephant"
-        },
-        {
-          title: "$23B",
-          comment: "One of the most illicit markets in the world, illegal wildlife trade is worth $7- $23 billion annually.",
-          link: "Animals We Support",
-          href: "/collect"
-        },
-        {
-          title: "18.7M",
-          comment: "Annually, 18.7M acres of forest loss affects 80% of terrestrial species' habitats.",
-          link: "Deforestation",
-          href: "/getinvolved#ground_activity"
-        },
-        {
-          title: "38,000+",
-          comment: "Over 38,000 species (27% of assessed) are threatened with extinction.",
-          link: "Donate",
-          href:"/donation"
-        }
-      ];
+
+export default function Comment() {
+  const stats = [
+    {
+      metric: '480B',
+      label: 'Frontier Model Parameters',
+      desc: 'Largest open-weights Zen MoE architecture with verifiable benchmarks.',
+      link: 'Explore Models',
+      href: '/ai',
+    },
+    {
+      metric: '1,500+',
+      label: 'Endangered Species Monitored',
+      desc: 'Real-time bioacoustic telemetry arrays deployed in IUCN Red List reserves.',
+      link: 'Conservation Impact',
+      href: '/impact',
+    },
+    {
+      metric: '120 kHz',
+      label: 'Ultrasonic Hydrophone Stream',
+      desc: 'High-frequency marine mammal communication and bioacoustic dataset.',
+      link: 'Bioacoustics DAW',
+      href: 'https://zoolabs.io/music',
+      external: true,
+    },
+    {
+      metric: '501(c)(3)',
+      label: 'Tax-Exempt Public Charity',
+      desc: 'All program donations directly deploy open AI to wildlife reserves.',
+      link: 'Transparency & 990',
+      href: '/transparency',
+    },
+  ];
+
   return (
-    <div className="bg-black">
-      <div className='flex max-md:flex-col md:pt-32 lg:pt-52 md:px-8 lg:px-20 max-md:px-4 max-md:pt-32'>
-      {comments.map((data, index) => (
-        <div key={index} className='max-md:w-full flex flex-col w-1/4 px-5'>
-            <h1 className='text-white md:text-3xl xl:text-5xl max-md:text-2xl'>{data.title}</h1>
-            <p className='text-white md:text-md 2xl:min-h-[220px] xl:min-h-[240px] md:min-h-[225px] lg:text-lg xl:text-2xl py-10 max-md:py-4'>{data.comment}</p>
-            <Link href={data.href} className='flex items-center  text-white md:text-md lg:text-lg xl:text-2xl max-md:pb-10' >
-              <>
-                <span className='pr-[15px]'>{data.link}</span>
-                <svg width="6" height="11" viewBox="0 0 6 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fillRule="evenodd" clipRule="evenodd" d="M6 5.5L1.19924 10.5L0 9.24901L3.59962 5.5L6.08905e-06 1.751L1.19924 0.5L6 5.5Z" fill="white"/>
-                </svg>
-              </>
-            </Link>
+    <section className="py-20 bg-background border-t border-border/40">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+            gap: '20px',
+          }}
+        >
+          {stats.map((item, idx) => (
+            <div
+              key={idx}
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                backdropFilter: 'blur(20px)',
+                borderRadius: '20px',
+                padding: '24px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                gap: '16px',
+              }}
+            >
+              <div>
+                <span
+                  style={{
+                    fontSize: 'clamp(28px, 4vw, 40px)',
+                    fontWeight: 900,
+                    letterSpacing: '-0.03em',
+                    color: '#FFFFFF',
+                    lineHeight: 1,
+                  }}
+                >
+                  {item.metric}
+                </span>
+                <h4 style={{ fontSize: '13px', fontWeight: 700, color: '#E4E4E7', marginTop: '8px' }}>
+                  {item.label}
+                </h4>
+                <p style={{ fontSize: '12px', color: '#A1A1AA', marginTop: '6px', lineHeight: 1.5 }}>
+                  {item.desc}
+                </p>
+              </div>
+
+              {item.external ? (
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    fontSize: '12px',
+                    fontWeight: 700,
+                    color: '#3B82F6',
+                    textDecoration: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                  }}
+                >
+                  <span>{item.link}</span>
+                  <span>&rarr;</span>
+                </a>
+              ) : (
+                <Link
+                  href={item.href}
+                  style={{
+                    fontSize: '12px',
+                    fontWeight: 700,
+                    color: '#3B82F6',
+                    textDecoration: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                  }}
+                >
+                  <span>{item.link}</span>
+                  <span>&rarr;</span>
+                </Link>
+              )}
+            </div>
+          ))}
         </div>
-      ))}
       </div>
-    </div>
+    </section>
   );
 }
-
-export default Comment;
